@@ -14,10 +14,10 @@ $ npm run server
 // Unit tests run - jest
 $ npm run unit
 
-// End-to-end tests with Nightwatch
+// End-to-end tests with Nightwatch - (none)
 $ npm run e2e
 
-// Unit tests run, end-to-end tests run 
+// Unit tests run, end-to-end tests run - (none)
 $ npm run test
 ```
 
