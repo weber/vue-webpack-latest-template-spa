@@ -1,0 +1,56 @@
+@import '~modularscale-sass/stylesheets/modularscale';
+
+html{
+    font-size: 100%;
+}
+
+/* $modularscale: (
+  base: 1rem,
+  ratio: 1.5,
+  320px: (
+    ratio: 1.1,
+  ),
+  900px: (
+    ratio: 1.15,
+  ),
+  1200px: (
+    ratio: 1.2,
+  ),
+  1900px: (
+    ratio: 1.3,
+  ),
+); */
+
+$modularscale: (
+    base: 1rem,
+    ratio: 1.2,
+);
+
+.my {
+    color: orange;
+
+    p{
+        color: blue;
+    }
+}
+
+h1 {
+    font-size: ms(5);
+    // @include ms-respond(font-size,5);
+}
+h2 {
+    font-size: ms(4);
+    // include ms-respond(font-size,4);
+}
+h3 {
+    font-size: ms(3);
+    // @include ms-respond(font-size,3);
+}
+h4 {
+    font-size: ms(2);
+    // @include ms-respond(font-size,2);
+}
+p{
+    font-size: ms(1);
+    // @include ms-respond(font-size, 1);
+}

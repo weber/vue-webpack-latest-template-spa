@@ -1,0 +1,7 @@
+{
+    "name": "My name app",
+    "short_name": "My short name app",
+    "description": "My awesome Progressive Web App!",
+    "background_app": "#ffffff",
+    "favicon": "src/static/img/logo.png"
+}

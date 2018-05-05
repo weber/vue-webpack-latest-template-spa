@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WelcomeMessage.vue renders props.msg when passed 1`] = `
+<div>
+  <h1>привет сучка!</h1>
+  <h2>привет сучка!</h2>
+  <h3>привет сучка!</h3>
+  <h4>привет сучка!</h4>
+  <p>привет сучка!</p>
+</div>
+`;
