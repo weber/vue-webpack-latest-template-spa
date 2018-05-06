@@ -4,13 +4,15 @@
     // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
       {
         "type": "chrome",
         "request": "launch",
         "name": "vue debugging",
+        "preLaunchTask": "npm: dev",
         "url": "http://localhost:8080",
         "webRoot": "${workspaceFolder}/src",
-        "breakOnLoad": true,
+        // "breakOnLoad": true,
         "sourceMapPathOverrides": {
           "webpack:///src/*": "${webRoot}/*"
         }

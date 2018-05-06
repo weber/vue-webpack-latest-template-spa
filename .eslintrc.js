@@ -6,20 +6,27 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    mocha: true
+    mocha: true,
+    es6: true,
+    'codeceptjs/codeceptjs': true
   },
   "globals": {
     "expect": true
   },
   extends: [
+    'plugin:security/recommended',
     'plugin:vue/recommended',
-    'standard'
+    'standard',
+    
   ],
   plugins: [
-    'vue'
+    'vue',
+    'security',
+    'codeceptjs'
   ],
   rules: {
     'generator-star-spacing': 'off',
+    "space-before-function-paren": [2,{"anonymous":"always","named":"always","asyncArrow":"always"}],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }

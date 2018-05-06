@@ -1,6 +1,6 @@
 {
-  "name": "vue-webpack-latest-template",
-  "version": "0.1.0",
+  "name": "vue-webpack-latest-template-spa",
+  "version": "0.2.0",
   "description": "A Vuejs template using Webpack 4",
   "author": "Kirichenko Sergei",
   "private": true,
@@ -12,8 +12,18 @@
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "test": "npm run unit && npm run e2e",
     "unit": "jest",
-    "e2e": "node test/e2e/runner.js",
-    "server": "node server.js"
+    "e2e": "./node_modules/.bin/codeceptjs run --steps",
+    "e2e:gen": "./node_modules/.bin/codeceptjs gt",
+    "server": "node server.js",
+    "check:snyk": "snyk test",
+    "check:snyk-monitor": "snyk monitor",
+    "snyk-wizard": "snyk wizard",
+    "check-security": "npm run check:snyk"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "eslint --ext .js,.vue src  | npm run test"
+    }
   },
   "keywords": [
     "Vue",
@@ -45,6 +55,8 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "clean-webpack-plugin": "^0.1.19",
+    "codeceptjs": "^1.1.8",
+    "codeceptjs-nightmare": "^1.2.0",
     "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
@@ -55,14 +67,17 @@
     "eslint-config-standard": "^12.0.0-alpha.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.0.0",
+    "eslint-plugin-codeceptjs": "^0.4.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue": "^4.5.0",
     "file-loader": "^1.1.11",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.0.0-rc.2",
     "image-webpack-loader": "^4.2.0",
     "imagemin-gifsicle": "^5.2.0",
     "imagemin-mozjpeg": "^7.0.0",
@@ -72,6 +87,7 @@
     "imagemin-webp": "^4.1.0",
     "jest": "^22.4.3",
     "jest-serializer-vue": "^1.0.0",
+    "jsdom-global": "^3.0.2",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
@@ -83,6 +99,7 @@
     "rename-webpack-plugin": "^1.0.1",
     "requires-port": "^1.0.0",
     "sass-loader": "^7.0.1",
+    "snyk": "^1.78.1",
     "style-loader": "^0.21.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
@@ -95,7 +112,7 @@
     "vue-server-renderer": "^2.5.16",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
-    "vue-tippy": "^2.0.11",
+    "vue-tippy": "^2.0.12",
     "webpack": "^4.7.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.1.2",
@@ -105,31 +122,44 @@
     "webpack-pwa-manifest": "^3.6.2"
   },
   "jest": {
+    "setupFiles": [
+      "<rootDir>/src/__test__/setup.js"
+    ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/components/**/*.vue",
-      "src/pages/**/*.vue",
+      "src/components/**/*.(js|vue)",
       "src/state/**/*.js",
-      "src/helpers/**/*.js",
+      "src/filters/**/*.js",
       "src/utils/**/*.js"
     ],
     "testMatch": [
       "**/src/components/**/?(*.)(spec|test).js",
-      "**/src/pages/**/?(*.)(spec|test).js",
       "**/src/state/**/?(*.)(spec|test).js",
-      "**/src/helpers/**/?(*.)(spec|test).js",
+      "**/src/filters/**/?(*.)(spec|test).js",
       "**/src/utils/**/?(*.)(spec|test).js"
     ],
     "testPathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/e2e/"
     ],
     "coverageDirectory": ".jest_coverage",
     "moduleFileExtensions": [
       "js",
-      "vue"
+      "vue",
+      "json"
     ],
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "^@components/(.*)$": "<rootDir>/src/components/$1",
+      "^@static/(.*)$": "<rootDir>/src/static/$1",
+      "^@filters/(.*)$": "<rootDir>/src/filters/$1",
+      "^@img/(.*)$": "<rootDir>/src/img/$1",
+      "^@pages/(.*)$": "<rootDir>/src/components/pages/$1",
+      "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+      "^@dl/(.*)$": "<rootDir>/src/components/dl/$1",
+      "^@layouts/(.*)$": "<rootDir>/src/components/layouts/$1",
+      "^@panels/(.*)$": "<rootDir>/src/components/panels/$1",
+      "^@controlls/(.*)$": "<rootDir>/src/components/controlls/$1"
     },
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",

@@ -11,14 +11,27 @@ $ npm run prod
 // Run static server(production build)
 $ npm run server
 
+// TESTING
 // Unit tests run - jest
 $ npm run unit
 
-// End-to-end tests with Nightwatch - (none)
+// End-to-end tests with Codeceptjs, Nightwatch
 $ npm run e2e
+// 
+$ npm run e2e:gen
 
-// Unit tests run, end-to-end tests run - (none)
+// Unit tests run, end-to-end tests run
 $ npm run test
+
+// SECURITY
+// security checking
+$ npm run check:snyk
+$ npm run check:snyk-monitor
+$ npm run snyk-wizard
+
+// security checking
+$ npm run check-security
+
 ```
 
 ## Path aliases
@@ -64,6 +77,10 @@ app-settings.json
 "favicon": "src/static/img/logo.png"
 ```
 
+##
+
+- Pre-push hooks
+- security checking
 
 ## 
 

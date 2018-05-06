@@ -1,0 +1,19 @@
+{
+  "tests": "./e2e/codecept/specs/*.spec.js",
+  "timeout": 10000,
+  "output": "./e2e/codecept/output",
+  "helpers": {
+    "Nightmare": {
+        "url": "http://localhost:8080",
+        "show": false,
+        "restart": false
+      }
+  },
+  "include": {
+    "I": "./e2e/codecept/steps_file.js"
+  },
+  "bootstrap": false,
+  "mocha": {},
+  "name": "vue-webpack-latest-template-spa",
+  "translation": "ru-RU"
+}
