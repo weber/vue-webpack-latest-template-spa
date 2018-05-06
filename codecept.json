@@ -3,7 +3,7 @@
   "timeout": 10000,
   "output": "./e2e/codecept/output",
   "helpers": {
-    "Nightmare": {
+    "Puppeteer": {
         "url": "http://localhost:8080",
         "show": false,
         "restart": false

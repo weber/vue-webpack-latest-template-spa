@@ -15,7 +15,10 @@ $ npm run server
 // Unit tests run - jest
 $ npm run unit
 
-// End-to-end tests with Codeceptjs, Nightwatch
+// End-to-end tests with Codeceptjs(https://codecept.io/), 
+// Puppeteer(https://github.com/GoogleChrome/puppeteer)
+// (https://codecept.io/puppeteer/)
+
 $ npm run e2e
 // 
 $ npm run e2e:gen
@@ -24,7 +27,7 @@ $ npm run e2e:gen
 $ npm run test
 
 // SECURITY
-// security checking
+// security checking(https://snyk.io/)
 $ npm run check:snyk
 $ npm run check:snyk-monitor
 $ npm run snyk-wizard
