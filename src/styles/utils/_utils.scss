@@ -1,0 +1,180 @@
+/**
+Создание переменных css4 из набора
+*/
+@mixin setVariable($variableSet, $prefix: "v") {
+    @each $name, $var in $variableSet {
+        --#{$prefix}-#{$name}: #{$var};
+    }
+}
+
+@function getVar($variableName, $prefix: "v") {
+    @return var(--#{$prefix}-#{$variableName});
+}
+
+
+// fetch nested key/vals from our config
+/**
+*
+*```
+$config: (
+  bg-image: 'http://lorempixel.com/1200/1200/nature/3',
+  z-index: (
+    blur: 0,
+    body: 1,
+    header: 2,
+    arrow: 2
+  ),
+  colors: (
+    hero-bg: rgba(white, 0.7),
+    body-bg: rgba(#f7f7f7, 0.6),
+    arrow-bg: darken(white, 15%),
+    text: #303030
+  ),
+  ...
+);
+
+.my-class {
+  z-index: map-fetch($config, z-index, blur);
+}
+
+$config: ( color: '#fff', border: '1px solid #000', z-index: 10 )
+
+
+.my-class {
+  color: map-get($config, color);
+}
+*```
+*/
+@function map-fetch($map, $keys...) {
+  @each $key in $keys {
+      $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+/// Asset URL builder
+/// @access private
+/// @param {String} $type - Asset type, matching folder name
+/// @param {String} $file - Asset file name, including extension
+/// @return {URL} - A `url()` function leading to the asset
+@function asset($type, $file) {
+    @return url($asset-base-path + '/' + $type + '/' + $file);
+}
+
+/**
+* Animations and keyframes
+usage:
+
+// обьявляем анимацию
+@include keyframes(slide-down) {
+  0% { opacity: 1; }
+  90% { opacity: 0; }
+}
+
+
+.element {
+  width: 100px;
+  height: 100px;
+  background: black;
+  // назначаем анимацию элементу — <имя анимация> «slide-down» <время выполнения> 5s <кол-во раз> 3
+  @include animation('slide-down 5s 3');
+}
+*/
+@mixin keyframes($animation-name) {
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+    animation: #{$str};
+}
+
+
+/**
+Центровка блока
+*/
+
+// .parent {
+//   position: relative;
+// }
+// .child {
+//   @include centerer;
+// }
+
+@mixin centerer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Использование своего родного шрифта на той или иной платформе
+@mixin systemFont {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+// Mixin generated at: http://text-crop.eightshapes.com/?
+// Убирает отступы у шрифта сверху и снизу с учетом метрик шрифта
+/* Usage Examples
+    .my-level-1-heading-class {
+        @include text-crop; // Will use default line height of 1.3
+        font-size: 48px;
+        margin: 0 0 0 16px;
+    }
+
+    .my-level-2-heading-class {
+        @include text-crop; // Will use default line height of 1.3
+        font-size: 32px; // Don't need to change any settings, will work with any font size automatically
+        margin: 0 0 0 16px;
+    }
+
+    .my-body-copy-class {
+        @include text-crop($line-height: 2); // Larger line height desired, set the line height via the mixin
+        font-size: 16px;
+    }
+
+    // Sometimes depending on the font-size, the rendering, the browser, etc. you may need to tweak the output.
+    // You can adjust the top and bottom cropping when invoking the component using the $top-adjustment and $bottom-adjustment settings
+
+    .slight-adjustment-needed {
+        @include text-crop($top-adjustment: -0.5px, $bottom-adjustment: 2px);
+        font-size: 17px;
+    }
+
+    .dont-do-this {
+        @include text-crop;
+        font-size: 16px;
+        line-height: 3; // DO NOT set line height outside of the mixin, the mixin needs the line height value to calculate the crop correctly
+    }
+*/
+@mixin text-crop($line-height: 1.3, $top-adjustment: 0px, $bottom-adjustment: 0px) {
+    // Configured in Step 1
+    $top-crop: 9;
+    $bottom-crop: 8;
+    $crop-font-size: 36;
+    $crop-line-height: 1.2;
+
+    // Apply values to calculate em-based margins that work with any font size
+    $dynamic-top-crop: max(($top-crop + ($line-height - $crop-line-height) * ($crop-font-size / 2)), 0) / $crop-font-size;
+    $dynamic-bottom-crop: max(($bottom-crop + ($line-height - $crop-line-height) * ($crop-font-size / 2)), 0) / $crop-font-size;
+
+    // Mixin output
+    line-height: $line-height;
+
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        height: 0;
+        width: 0;
+    }
+
+    &::before {
+        margin-bottom: calc(-#{$dynamic-top-crop}em + #{$top-adjustment});
+    }
+
+    &::after {
+        margin-top: calc(-#{$dynamic-bottom-crop}em + #{$bottom-adjustment});
+    }
+}

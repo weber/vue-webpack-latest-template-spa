@@ -1,37 +1,40 @@
+// global styles
+@import './_settings';
 @import '~modularscale-sass/stylesheets/modularscale';
+@import './utils/text-crop';
 
-html{
-    font-size: 100%;
+@font-face {
+    font-family: system;
+    font-style: normal;
+    font-weight: 300;
+    src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
 }
 
-/* $modularscale: (
-  base: 1rem,
-  ratio: 1.5,
-  320px: (
-    ratio: 1.1,
-  ),
-  900px: (
-    ratio: 1.15,
-  ),
-  1200px: (
-    ratio: 1.2,
-  ),
-  1900px: (
-    ratio: 1.3,
-  ),
-); */
+:root{
+    overflow: hidden;
+    height: 100%;
+    height: 100vh;
+    font-family: "system";
+    font-size: 100%;
+}
 
 $modularscale: (
     base: 1rem,
     ratio: 1.2,
 );
 
-.my {
-    color: orange;
-
-    p{
-        color: blue;
-    }
+body {
+    padding: 2rem;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    -webkit-backface-visibility:hidden;
+    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    overflow: auto; 
 }
 
 h1 {
@@ -51,6 +54,15 @@ h4 {
     // @include ms-respond(font-size,2);
 }
 p{
+    @include text-crop;
     font-size: ms(1);
     // @include ms-respond(font-size, 1);
+}
+
+.my {
+    color: orange;
+
+    p{
+        color: blue;
+    }
 }

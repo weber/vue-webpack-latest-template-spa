@@ -1,0 +1,52 @@
+/*
+html {
+  @include fluid-type(font-size, 320px, 1366px, 14px, 18px);
+}
+
+Multiple properties with same values
+h1 {
+    @include fluid-type(padding-bottom padding-top, 20em, 70em, 2em, 4em);
+}
+*/
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+    & {
+        @each $property in $properties {
+            #{$property}: $min-value;
+        }
+
+        @media screen and (min-width: $min-vw) {
+            @each $property in $properties {
+                #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+            }
+        }
+
+        @media screen and (min-width: $max-vw) {
+            @each $property in $properties {
+                #{$property}: $max-value;
+            }
+        }
+    }
+}
+
+
+@mixin fontsize($size:1.6, $line: $size * 1.5){
+    font-size:   ($size * $baseFontSize) + px;
+    line-height: ($line * $baseFontSize) + px;
+    font-size:   $size + rem;
+    line-height: $line + rem;
+}
+
+
+@mixin fsize($size, $base: $baseFontSize) {
+    font-size: $size + px; // fallback for old browsers
+    font-size: (($size / $base) * 1) + rem;
+}
+
+@mixin lineheight($line){
+    line-height: ($line * $baseFontSize) + px;
+    line-height: $line + rem;
+}
