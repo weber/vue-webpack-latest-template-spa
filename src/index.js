@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from './router'
 import App from './App'
 // import { store } from './store'
-// import Ramda from './vendor/ramda-proxy'
+// import Ramda from './vendors-proxy/ramda-proxy'
 import EventBus from './utils/eventBus'
 
 // import './styles/app.styl'
