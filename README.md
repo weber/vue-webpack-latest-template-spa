@@ -94,8 +94,8 @@ app-settings.json
 - uglifyjs 3
 - eslint
 - jest
-- nightwatch
-- sass
+- puppeteer
+- scss
 - stylus
 - less
 - imagemin(gifsicle, mozjpeg, optipng, pngquant, svgo, webp)
